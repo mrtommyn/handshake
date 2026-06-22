@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(npm -v)",
+      "Bash(npx --yes create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --turbopack --import-alias \"@/*\" --use-npm --yes)",
+      "Bash(npx --yes create-next-app@latest handshake --typescript --tailwind --eslint --app --src-dir --turbopack --import-alias \"@/*\" --use-npm --yes)",
+      "Bash(npx --yes shadcn@latest init -d --yes)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(grep -E \"^\\(motion|gsap|three|lenis|next|react\\)$\")",
+      "Bash(node -e \"const p=require\\('./package.json'\\); console.log\\(JSON.stringify\\(p.dependencies,null,2\\)\\)\")",
+      "Bash(claude mcp *)",
+      "Bash(git -C /g/Handshake status -s)",
+      "Bash(git -C /g/Handshake log --oneline)",
+      "Bash(gh --version)",
+      "Bash(gh auth *)",
+      "Bash(git --version)",
+      "Bash(git check-ignore *)"
+    ]
+  }
+}
