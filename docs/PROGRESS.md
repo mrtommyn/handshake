@@ -16,12 +16,12 @@
 
 ## Current Status
 
-**Phase:** Product spec captured. Mapping architecture & build plan; deciding build order
-and external services before building features.
+**Phase:** Phase 1 — design system underway. Tokens + typography implemented and previewed.
+Next: AI brand assets (logo + illustrations), then build the brand site home page.
 **Last updated:** 2026-06-22
 
-One-liner: Foundation + spec done. Next: lock build order (brand site vs product MVP first),
-confirm web-only mobile-first, choose comms/identity providers, then design system + first screens.
+One-liner: Headspace-inspired design system is live (warm palette, Plus Jakarta Sans, rounded
+geometry, Motion entrances) — see `/design`. Next: generate logo + illustrations, build home page.
 
 ---
 
@@ -36,6 +36,12 @@ confirm web-only mobile-first, choose comms/identity providers, then design syst
 - **MCPs (project-scoped, in `.mcp.json`):** supabase, 21st-dev magic, nano-banana
 - **Backend (planned default):** Supabase (DB + auth + storage + edge functions) — not yet wired
 - **Effect libraries (Aceternity / Magic UI):** added per-component on demand, not bulk-installed
+- **Build order:** (1) design system + brand site → (2) Supabase+auth+deal creation →
+  (3) Stripe Identity verification → (4) agreement builder + e-sign + PDF + email/SMS → (5) admin + deploy
+- **Platform:** Web, mobile-first responsive. No native app for MVP.
+- **Invites:** Email (Resend) **+ SMS (Twilio)** — both in MVP (Phase 4).
+- **Identity provider:** Stripe Identity.
+- **Brand assets:** AI-generated via nano-banana (logo + Headspace-style illustration set).
 
 ---
 
@@ -97,8 +103,12 @@ rental, roommate, custom.
 - [x] Git + GitHub sync live
 - [x] Progress tracking (this file + CLAUDE.md protocol)
 - [x] Capture product spec
-- [ ] Lock build order + external services (Stripe Identity, email/SMS, hosting)
-- [ ] Design system (Headspace-inspired: orange palette, type, illustration + motion language)
+- [x] Lock build order + external services (Stripe Identity, Resend+Twilio, Vercel)
+- [~] Design system — tokens + typography + motion done; brand assets (logo/illustrations) next
+  - [x] Color palette (warm Headspace orange + verified green/teal/yellow) in `globals.css`
+  - [x] Typography (Plus Jakarta Sans) + rounded geometry (radius 0.9rem)
+  - [x] Live preview page at `/design` (palette, type, buttons, trust badges, deal card)
+  - [ ] Logo + illustration set (AI / nano-banana)
 - [ ] Define information architecture / routes (brand site + product app + invite flow)
 - [ ] Data model in Supabase (users, deals, parties, verifications, agreements, signatures, audit)
 - [ ] Build first screen(s)
@@ -131,6 +141,18 @@ rental, roommate, custom.
 ---
 
 ## Session Log (append-only, newest first)
+
+### 2026-06-22 — Design system kickoff (Phase 1)
+- Locked build order, web mobile-first, email+SMS invites, AI brand assets.
+- Implemented Headspace-inspired tokens in `src/app/globals.css`: warm cream bg (#fff8f1),
+  warm charcoal text, primary orange (#ea580c), brand orange (#ff8a4c), verified green
+  (#15924f), warm yellow, calm teal; radius 0.9rem; warm dark theme too.
+- Swapped font to Plus Jakarta Sans (`src/app/layout.tsx`); updated site metadata.
+- Built `/design` preview page (`src/app/design/page.tsx`) with Motion entrances — palette,
+  type scale, buttons, trust badges (Verified / Mutual Verified / Pending), sample deal card.
+- Verified live via Claude Preview on desktop + mobile (375px). Looks on-brand. Added
+  `.claude/launch.json` for preview.
+- Next: AI logo + illustration set, then brand site home page.
 
 ### 2026-06-22 — Product spec captured
 - Received full Brand & Technical brief. Filled in **Product Spec** above.
