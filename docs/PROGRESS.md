@@ -16,12 +16,12 @@
 
 ## Current Status
 
-**Phase:** Phase 1 — design system underway. Tokens + typography implemented and previewed.
-Next: AI brand assets (logo + illustrations), then build the brand site home page.
+**Phase:** Phase 1 — design system done; brand site started. Home page hero built (header +
+animated hero). Next: remaining home sections (how it works, use cases, trust, footer CTA).
 **Last updated:** 2026-06-22
 
-One-liner: Headspace-inspired design system is live (warm palette, Plus Jakarta Sans, rounded
-geometry, Motion entrances) — see `/design`. Next: generate logo + illustrations, build home page.
+One-liner: Design system + logo done (Apricot `#F8843A`). Home page hero live at `/` (sticky
+header, animated headline + CTAs + floating deal-card visual, mobile-first). Next: more sections.
 
 ---
 
@@ -114,7 +114,11 @@ rental, roommate, custom.
   - [ ] Illustration set (Headspace-style) — gated on Gemini billing; decide later
 - [ ] Define information architecture / routes (brand site + product app + invite flow)
 - [ ] Data model in Supabase (users, deals, parties, verifications, agreements, signatures, audit)
-- [ ] Build first screen(s)
+- [~] Brand site home page
+  - [x] Site header (logo, nav, CTA) — `src/components/site/site-header.tsx`
+  - [x] Hero (animated headline, CTAs, floating deal-card visual) — `src/components/site/hero.tsx`
+  - [ ] How it works · Use cases · Trust & safety · Footer CTA
+  - [ ] Lenis smooth scroll (add once there are multiple sections)
 - [ ] Stripe Identity integration + webhook
 - [ ] Agreement templates + builder + e-signature
 - [ ] PDF generation (unique contract ID) + email delivery
@@ -144,6 +148,14 @@ rental, roommate, custom.
 ---
 
 ## Session Log (append-only, newest first)
+
+### 2026-06-22 — Home page hero built
+- Replaced Next.js boilerplate `src/app/page.tsx` with the real marketing home.
+- Added `SiteHeader` (sticky, logo + nav + CTA) and animated `Hero` (Motion entrances,
+  eyebrow pill, apricot headline, dual CTAs, trust row, floating deal-card visual with
+  ID-verified / Agreement-signed chips, soft background glows). Respects reduced-motion.
+- Verified live on desktop + mobile (375px), no console errors.
+- Next: how-it-works, use-cases, trust & safety, footer CTA; then Lenis smooth scroll.
 
 ### 2026-06-22 — Softened primary orange
 - Primary orange changed from deep `#EA580C` (Ember, felt harsh) to `#F8843A` (Apricot) —
