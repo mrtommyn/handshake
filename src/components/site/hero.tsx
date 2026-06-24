@@ -41,7 +41,7 @@ export function Hero() {
             className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1.5 text-sm font-semibold text-muted-foreground"
           >
             <span className="size-2 rounded-full bg-verified" />
-            Verify · Agree · Done
+            Verify someone · Make an agreement
           </motion.span>
 
           <motion.h1
@@ -56,9 +56,8 @@ export function Hero() {
             variants={item}
             className="mt-5 max-w-xl text-lg text-muted-foreground"
           >
-            Buying, selling, lending, renting, between everyday people. Check who you’re
-            dealing with, agree on the terms in plain English, and walk away knowing the
-            deal feels safe.
+            Confirm who you’re dealing with before you meet, and put the deal in writing if
+            you want to. Simple, friendly safety for everyday deals between real people.
           </motion.p>
 
           <motion.div variants={item} className="mt-8 flex flex-wrap items-center gap-3">

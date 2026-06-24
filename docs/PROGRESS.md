@@ -135,7 +135,8 @@ rental, roommate, custom.
 - [~] Brand site home page
   - [x] Site header (logo, nav, CTA) — `src/components/site/site-header.tsx`
   - [x] Hero (animated headline, CTAs, floating deal-card visual) — `src/components/site/hero.tsx`
-  - [x] How it works (Verify → Agree → Sign, scroll-reveal) — `src/components/site/how-it-works.tsx`
+  - [x] Two ways to use it (Verify someone / Make an agreement) — `src/components/site/two-ways.tsx`
+  - [x] How it works (reframed: verify standalone, agreement optional) — `how-it-works.tsx`
   - [ ] Use cases · Trust & safety · Footer CTA
   - [ ] Lenis smooth scroll (add once there are multiple sections)
 - [ ] Stripe Identity integration + webhook
@@ -167,6 +168,17 @@ rental, roommate, custom.
 ---
 
 ## Session Log (append-only, newest first)
+
+### 2026-06-22 — "Two ways to use it" + reframe for dual-mode product
+- New product framing locked: Verify (standalone) and Agreements (optional) are two
+  independent, combinable primitives. Reflected across the site:
+  - Built `src/components/site/two-ways.tsx` (Verify someone [teal] / Put the deal in writing
+    [apricot], feature lists, dual CTAs, "use one or both" line). Added after Hero.
+  - Hero copy updated (eyebrow "Verify someone · Make an agreement"; subhead leads with
+    verification, not just deals).
+  - "How it works" reframed: heading "How a Handshake works", subhead about choosing how far
+    to go, step 1 "Enough on its own", step 2 "Add an agreement (optional)".
+- Verified live (HTTP 200, no em dashes). Page order: Hero → Two ways → How it works.
 
 ### 2026-06-22 — "How it works" section + live-preview workflow
 - Switched to live dev-server workflow (user keeps localhost:3000 open; HMR shows edits live)

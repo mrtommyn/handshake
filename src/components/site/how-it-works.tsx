@@ -56,15 +56,15 @@ const steps = [
     n: "01",
     title: "Verify who you’re dealing with",
     desc: "Confirm the other person is really who they say, with a quick government ID check and selfie.",
-    detail: "We only keep the result, never your ID images.",
+    detail: "Enough on its own. We only keep the result, never your ID images.",
     icon: <VerifyIcon />,
     tile: "#e6f6f8",
     accent: "#2bb7c4",
   },
   {
     n: "02",
-    title: "Agree on the terms",
-    desc: "Pick a template (sale, loan, rental, roommate) and edit it in plain English. No legal jargon.",
+    title: "Add an agreement (optional)",
+    desc: "Want it in writing? Pick a template (sale, loan, rental, roommate) and edit it in plain English. No legal jargon.",
     detail: "Both sides see exactly what’s being agreed.",
     icon: <AgreeIcon />,
     tile: "#ffeddf",
@@ -90,10 +90,10 @@ export function HowItWorks() {
             How it works
           </span>
           <h2 className="mt-3 text-4xl font-extrabold tracking-tight sm:text-5xl">
-            Three steps to a deal that feels safe
+            How a Handshake works
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            From “do I trust this person?” to a signed agreement, in minutes, in plain English.
+            Verify on its own, or take it all the way to a signed agreement. You choose how far to go.
           </p>
         </div>
 
