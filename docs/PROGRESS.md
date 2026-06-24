@@ -16,12 +16,13 @@
 
 ## Current Status
 
-**Phase:** Phase 1 — design system done; brand site started. Home page hero built (header +
-animated hero). Next: remaining home sections (how it works, use cases, trust, footer CTA).
+**Phase:** Phase 1 — brand site home page COMPLETE (all sections + Lenis smooth scroll).
+Next: either polish/QA the home page, add more marketing pages, or start Phase 2 (Supabase +
+auth + the product app).
 **Last updated:** 2026-06-22
 
-One-liner: Design system + logo done (Apricot `#F8843A`). Home page hero live at `/` (sticky
-header, animated headline + CTAs + floating deal-card visual, mobile-first). Next: more sections.
+One-liner: Full marketing home page live at `/` (Hero → Two ways → How it works → Use cases →
+Trust & safety → Final CTA → Footer), dual-mode product framing, Apricot brand, smooth scroll.
 
 ---
 
@@ -132,13 +133,15 @@ rental, roommate, custom.
   - [ ] Illustration set (Headspace-style) — gated on Gemini billing; decide later
 - [ ] Define information architecture / routes (brand site + product app + invite flow)
 - [ ] Data model in Supabase (users, deals, parties, verifications, agreements, signatures, audit)
-- [~] Brand site home page
+- [x] Brand site home page (complete)
   - [x] Site header (logo, nav, CTA) — `src/components/site/site-header.tsx`
   - [x] Hero (animated headline, CTAs, floating deal-card visual) — `src/components/site/hero.tsx`
   - [x] Two ways to use it (Verify someone / Make an agreement) — `src/components/site/two-ways.tsx`
   - [x] How it works (reframed: verify standalone, agreement optional) — `how-it-works.tsx`
-  - [ ] Use cases · Trust & safety · Footer CTA
-  - [ ] Lenis smooth scroll (add once there are multiple sections)
+  - [x] Use cases (6-card grid) — `src/components/site/use-cases.tsx`
+  - [x] Trust & safety (4 points) — `src/components/site/trust-safety.tsx`
+  - [x] Final CTA + footer — `src/components/site/site-footer.tsx`
+  - [x] Lenis smooth scroll — `src/components/smooth-scroll.tsx` (+ CSS in globals.css)
 - [ ] Stripe Identity integration + webhook
 - [ ] Agreement templates + builder + e-signature
 - [ ] PDF generation (unique contract ID) + email delivery
@@ -168,6 +171,17 @@ rental, roommate, custom.
 ---
 
 ## Session Log (append-only, newest first)
+
+### 2026-06-22 — Home page completed (Use cases, Trust, Footer, Lenis)
+- Built `use-cases.tsx` (6-card grid: marketplace, vehicles, friend loans, rentals,
+  roommates, repayment plans; line icons, hover lift, on muted band).
+- Built `trust-safety.tsx` (4 points: verified identity, ID privacy, fair both ways, keepable
+  record).
+- Built `site-footer.tsx`: `FinalCta` (apricot band, dual CTAs) + `SiteFooter` (logo, link
+  columns, copyright).
+- Added Lenis smooth scroll (`smooth-scroll.tsx` + globals.css), reduced-motion aware.
+- Home page order finalized in `page.tsx`. Verified live (HTTP 200, clean compiles, no em dashes).
+- Phase 1 brand site home page is now complete.
 
 ### 2026-06-22 — "Two ways to use it" + reframe for dual-mode product
 - New product framing locked: Verify (standalone) and Agreements (optional) are two
