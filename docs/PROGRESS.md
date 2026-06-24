@@ -117,7 +117,8 @@ rental, roommate, custom.
 - [~] Brand site home page
   - [x] Site header (logo, nav, CTA) — `src/components/site/site-header.tsx`
   - [x] Hero (animated headline, CTAs, floating deal-card visual) — `src/components/site/hero.tsx`
-  - [ ] How it works · Use cases · Trust & safety · Footer CTA
+  - [x] How it works (Verify → Agree → Sign, scroll-reveal) — `src/components/site/how-it-works.tsx`
+  - [ ] Use cases · Trust & safety · Footer CTA
   - [ ] Lenis smooth scroll (add once there are multiple sections)
 - [ ] Stripe Identity integration + webhook
 - [ ] Agreement templates + builder + e-signature
@@ -148,6 +149,14 @@ rental, roommate, custom.
 ---
 
 ## Session Log (append-only, newest first)
+
+### 2026-06-22 — "How it works" section + live-preview workflow
+- Switched to live dev-server workflow (user keeps localhost:3000 open; HMR shows edits live)
+  instead of relying on chat screenshots. Inline `mcp__visualize` widgets are re-creations,
+  not the live app — use for quick looks/comparisons only.
+- Built `src/components/site/how-it-works.tsx`: Verify → Agree → Sign, three cards with
+  on-brand SVG icons (teal/apricot/green), faint step numbers, scroll-reveal (whileInView).
+  Added to home page. Verified live (HTTP 200, clean HMR compile).
 
 ### 2026-06-22 — Home page hero built
 - Replaced Next.js boilerplate `src/app/page.tsx` with the real marketing home.
