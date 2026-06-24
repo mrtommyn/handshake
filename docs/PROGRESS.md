@@ -44,6 +44,15 @@ header, animated headline + CTAs + floating deal-card visual, mobile-first). Nex
 - **Brand assets:** AI-generated via nano-banana (logo + Headspace-style illustration set).
 - **Copy voice rule:** NO em dashes (—) anywhere in user-facing copy. Use commas, periods,
   parentheses, or "·" instead. (User preference, applies to all copy going forward.)
+- **Product model = two independent, combinable primitives:**
+  (1) **Verify someone** — standalone identity verification, no contract required (e.g. just
+  want to know who you're meeting before a marketplace pickup / meetup). A first-class entry
+  point on its own, NOT only step one of a contract.
+  (2) **Agreements** — lightweight contracts that stand on their own and can *optionally*
+  attach verification(s).
+  Either alone or together. "Start a Handshake" is the umbrella entry that lets the user pick.
+  Phase 2 schema: a verification is its own object (can exist with no deal); an agreement can
+  reference verifications.
 - **Verification model (Phase 2 schema principle):** separate two concepts —
   (a) reusable *identity* verification: a person verifies ID once (Stripe Identity) → persistent
   "ID Verified" on their profile, so they don't re-scan for every deal; and (b) per-deal
