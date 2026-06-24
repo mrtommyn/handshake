@@ -42,3 +42,6 @@ next-env.d.ts
 
 # Claude Code local (machine-specific) settings
 .claude/settings.local.json
+
+# Local MCP secrets (never commit)
+.nano-banana-config.json

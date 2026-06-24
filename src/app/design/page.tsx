@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import { Button } from "@/components/ui/button";
+import { Logo, HandshakeMark } from "@/components/brand/logo";
 
 const container = {
   hidden: { opacity: 0 },
@@ -69,15 +70,9 @@ export default function DesignSystemPage() {
   return (
     <main className="mx-auto w-full max-w-5xl px-6 py-14">
       {/* Wordmark */}
-      <div className="mb-12 flex items-center gap-2.5">
-        <span className="grid size-9 place-items-center rounded-2xl bg-primary text-primary-foreground">
-          <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M11 17 7 13a2.5 2.5 0 0 1 0-3.5l1-1a2.5 2.5 0 0 1 3.5 0l1.5 1.5" />
-            <path d="m13 7 4 4a2.5 2.5 0 0 1 0 3.5l-1 1a2.5 2.5 0 0 1-3.5 0L11 15" />
-          </svg>
-        </span>
-        <span className="text-xl font-extrabold tracking-tight">Handshake</span>
-        <span className="ml-3 rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
+      <div className="mb-12 flex items-center gap-3">
+        <Logo />
+        <span className="ml-1 rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
           design system
         </span>
       </div>
@@ -97,6 +92,33 @@ export default function DesignSystemPage() {
             Not legal software. Not compliance. Just confidence.
           </p>
         </motion.section>
+
+        {/* Logo */}
+        <section>
+          <h2 className="mb-5 text-sm font-semibold uppercase tracking-widest text-muted-foreground">
+            Logo
+          </h2>
+          <motion.div
+            variants={item}
+            className="flex flex-wrap items-center gap-x-10 gap-y-6 rounded-3xl border border-border bg-card p-8"
+          >
+            <Logo />
+            <Logo variant="mark" />
+            <HandshakeMark tone="mono" className="h-8 text-foreground" />
+            <div className="grid size-14 place-items-center rounded-2xl bg-primary text-white">
+              <HandshakeMark tone="mono" className="h-7" />
+            </div>
+            <div className="grid size-14 place-items-center rounded-2xl bg-foreground text-background">
+              <HandshakeMark tone="mono" className="h-7" />
+            </div>
+            <div className="grid place-items-center rounded-xl border border-border p-2">
+              <HandshakeMark className="h-4" />
+            </div>
+          </motion.div>
+          <p className="mt-3 text-sm text-muted-foreground">
+            Lockup &amp; mark (colour) · 1-colour mark · app-icon tile · on-dark · favicon size.
+          </p>
+        </section>
 
         {/* Palette */}
         <section>

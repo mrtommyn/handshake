@@ -108,7 +108,10 @@ rental, roommate, custom.
   - [x] Color palette (warm Headspace orange + verified green/teal/yellow) in `globals.css`
   - [x] Typography (Plus Jakarta Sans) + rounded geometry (radius 0.9rem)
   - [x] Live preview page at `/design` (palette, type, buttons, trust badges, deal card)
-  - [ ] Logo + illustration set (AI / nano-banana)
+  - [x] Logo: "linked" mark (orange + teal overlap → green trust-link). Reusable
+    `<Logo>` / `<HandshakeMark>` component (`src/components/brand/logo.tsx`), color +
+    1-colour variants, favicon at `src/app/icon.svg`. Shown in `/design` Logo section.
+  - [ ] Illustration set (Headspace-style) — gated on Gemini billing; decide later
 - [ ] Define information architecture / routes (brand site + product app + invite flow)
 - [ ] Data model in Supabase (users, deals, parties, verifications, agreements, signatures, audit)
 - [ ] Build first screen(s)
@@ -141,6 +144,18 @@ rental, roommate, custom.
 ---
 
 ## Session Log (append-only, newest first)
+
+### 2026-06-22 — Logo designed + built
+- AI image gen (nano-banana) blocked: bundled GEMINI_API_KEY was invalid; user supplied a
+  valid key, but Gemini image models require billing (free-tier image quota = 0). Text works.
+  Decision: do the LOGO as vector (better for logos anyway); revisit AI for illustrations.
+- Explored logo concepts as SVG, user chose the "two shapes linking" direction.
+- Locked: primary mark = **Solid + green link** (orange + teal overlap → green link = trust);
+  colour approach = two-tone primary + 1-colour app icon.
+- Built reusable `src/components/brand/logo.tsx` (`<Logo>`, `<HandshakeMark>`; color/mono,
+  lockup/mark). Added favicon `src/app/icon.svg`. Wired into `/design` (header + Logo section).
+- Verified live (Preview): renders clean, no console errors, scales to favicon.
+- Helper `scripts/genimg.mjs` added for Gemini image gen once billing is enabled.
 
 ### 2026-06-22 — Design system kickoff (Phase 1)
 - Locked build order, web mobile-first, email+SMS invites, AI brand assets.
