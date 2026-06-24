@@ -145,6 +145,11 @@ rental, roommate, custom.
 
 ## Session Log (append-only, newest first)
 
+### 2026-06-22 — Softened primary orange
+- Primary orange changed from deep `#EA580C` (Ember, felt harsh) to `#F8843A` (Apricot) —
+  warmer/lighter, more Headspace. Updated everywhere: `globals.css` tokens (primary, ring,
+  sidebar, chart-5), logo (`logo.tsx`), favicon (`icon.svg`), deal-card shadow. Verified live.
+
 ### 2026-06-22 — Logo designed + built
 - AI image gen (nano-banana) blocked: bundled GEMINI_API_KEY was invalid; user supplied a
   valid key, but Gemini image models require billing (free-tier image quota = 0). Text works.

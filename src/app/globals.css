@@ -72,7 +72,7 @@
   --popover: #ffffff;
   --popover-foreground: #2a2320;
 
-  --primary: #ea580c;              /* Handshake orange (actions) */
+  --primary: #f8843a;              /* Handshake orange — apricot (actions) */
   --primary-foreground: #ffffff;
   --secondary: #ffeddf;            /* soft peach surface */
   --secondary-foreground: #7a3a12; /* warm brown text on peach */
@@ -83,7 +83,7 @@
   --destructive: #e5484d;          /* soft, non-alarming red */
   --border: #f0e4d8;
   --input: #efe3d6;
-  --ring: #ea580c;
+  --ring: #f8843a;
 
   /* Brand extras */
   --brand: #ff8a4c;                /* lighter orange for illustration/accents */
@@ -101,18 +101,18 @@
   --chart-2: #ffc75a;
   --chart-3: #2bb7c4;
   --chart-4: #15924f;
-  --chart-5: #ea580c;
+  --chart-5: #f8843a;
 
   --radius: 0.9rem;                /* soft, rounded geometry */
 
   --sidebar: #fffaf4;
   --sidebar-foreground: #2a2320;
-  --sidebar-primary: #ea580c;
+  --sidebar-primary: #f8843a;
   --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #ffe3cc;
   --sidebar-accent-foreground: #7a3a12;
   --sidebar-border: #f0e4d8;
-  --sidebar-ring: #ea580c;
+  --sidebar-ring: #f8843a;
 }
 
 .dark {

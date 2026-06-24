@@ -24,7 +24,7 @@ export function HandshakeMark({
     >
       {tone === "color" ? (
         <>
-          <circle cx="-13" cy="0" r="15" fill="#ea580c" />
+          <circle cx="-13" cy="0" r="15" fill="#f8843a" />
           <circle cx="13" cy="0" r="15" fill="#2bb7c4" />
           <path d="M0 -7.48 A15 15 0 0 1 0 7.48 A15 15 0 0 1 0 -7.48 Z" fill="#15924f" />
         </>

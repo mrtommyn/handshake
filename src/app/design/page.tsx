@@ -199,7 +199,7 @@ export default function DesignSystemPage() {
             variants={item}
             whileHover={{ y: -4 }}
             transition={{ type: "spring", stiffness: 300, damping: 22 }}
-            className="max-w-md rounded-3xl border border-border bg-card p-6 shadow-[0_8px_30px_-12px_rgba(234,88,12,0.25)]"
+            className="max-w-md rounded-3xl border border-border bg-card p-6 shadow-[0_8px_30px_-12px_rgba(248,132,58,0.3)]"
           >
             <div className="flex items-center justify-between">
               <span className="rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-secondary-foreground">
