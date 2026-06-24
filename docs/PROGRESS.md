@@ -42,6 +42,15 @@ header, animated headline + CTAs + floating deal-card visual, mobile-first). Nex
 - **Invites:** Email (Resend) **+ SMS (Twilio)** — both in MVP (Phase 4).
 - **Identity provider:** Stripe Identity.
 - **Brand assets:** AI-generated via nano-banana (logo + Headspace-style illustration set).
+- **Copy voice rule:** NO em dashes (—) anywhere in user-facing copy. Use commas, periods,
+  parentheses, or "·" instead. (User preference, applies to all copy going forward.)
+- **Verification model (Phase 2 schema principle):** separate two concepts —
+  (a) reusable *identity* verification: a person verifies ID once (Stripe Identity) → persistent
+  "ID Verified" on their profile, so they don't re-scan for every deal; and (b) per-deal
+  *mutual* verification: both parties confirm for a specific deal → "Mutual Verified" badge on
+  that deal. Add optional safety re-checks later (fresh selfie/liveness if verification is old,
+  high-value deal, or risk signals). Don't build a reputation/trust-badge system in MVP; just
+  design the schema so it's possible. Dashboard stays light in Phase 2.
 
 ---
 

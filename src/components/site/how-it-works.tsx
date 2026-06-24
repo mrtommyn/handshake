@@ -55,7 +55,7 @@ const steps = [
   {
     n: "01",
     title: "Verify who you’re dealing with",
-    desc: "Confirm the other person is really who they say — a quick government ID check and selfie.",
+    desc: "Confirm the other person is really who they say, with a quick government ID check and selfie.",
     detail: "We only keep the result, never your ID images.",
     icon: <VerifyIcon />,
     tile: "#e6f6f8",
@@ -64,7 +64,7 @@ const steps = [
   {
     n: "02",
     title: "Agree on the terms",
-    desc: "Pick a template — sale, loan, rental, roommate — and edit it in plain English. No legal jargon.",
+    desc: "Pick a template (sale, loan, rental, roommate) and edit it in plain English. No legal jargon.",
     detail: "Both sides see exactly what’s being agreed.",
     icon: <AgreeIcon />,
     tile: "#ffeddf",
@@ -72,7 +72,7 @@ const steps = [
   },
   {
     n: "03",
-    title: "Both sign — done",
+    title: "Both sign, you’re done",
     desc: "Each person signs digitally. You both get a signed agreement you can keep.",
     detail: "A PDF with a unique ID, timestamp & verification status.",
     icon: <SignIcon />,
@@ -93,7 +93,7 @@ export function HowItWorks() {
             Three steps to a deal that feels safe
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            From “do I trust this person?” to a signed agreement — in minutes, in plain English.
+            From “do I trust this person?” to a signed agreement, in minutes, in plain English.
           </p>
         </div>
 

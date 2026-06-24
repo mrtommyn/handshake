@@ -56,7 +56,7 @@ export function Hero() {
             variants={item}
             className="mt-5 max-w-xl text-lg text-muted-foreground"
           >
-            Buying, selling, lending, renting — between everyday people. Check who you’re
+            Buying, selling, lending, renting, between everyday people. Check who you’re
             dealing with, agree on the terms in plain English, and walk away knowing the
             deal feels safe.
           </motion.p>
@@ -79,7 +79,7 @@ export function Hero() {
               <span className="size-7 rounded-full bg-calm ring-2 ring-background" />
               <span className="size-7 rounded-full bg-warm ring-2 ring-background" />
             </div>
-            Free to start — the other person doesn’t even need an account.
+            Free to start. The other person doesn’t even need an account.
           </motion.div>
         </motion.div>
 
@@ -124,7 +124,7 @@ export function Hero() {
               </div>
               <p className="text-sm text-muted-foreground">
                 <span className="font-semibold text-foreground">Tom</span> &amp;{" "}
-                <span className="font-semibold text-foreground">Jess</span> — meetup Sat 2pm
+                <span className="font-semibold text-foreground">Jess</span>, meetup Sat 2pm
               </p>
             </div>
 

@@ -88,7 +88,7 @@ export default function DesignSystemPage() {
             <span className="text-primary">handshake</span>.
           </h1>
           <p className="mt-4 max-w-xl text-lg text-muted-foreground">
-            Warm, human, and calm — the feeling of doing a deal you can trust.
+            Warm, human, and calm. The feeling of doing a deal you can trust.
             Not legal software. Not compliance. Just confidence.
           </p>
         </motion.section>
@@ -143,7 +143,7 @@ export default function DesignSystemPage() {
         {/* Typography */}
         <section>
           <h2 className="mb-5 text-sm font-semibold uppercase tracking-widest text-muted-foreground">
-            Typography — Plus Jakarta Sans
+            Typography · Plus Jakarta Sans
           </h2>
           <motion.div variants={container} className="space-y-3">
             <motion.p variants={item} className="text-5xl font-extrabold tracking-tight">
@@ -156,7 +156,7 @@ export default function DesignSystemPage() {
               The friend who helps both sides make a fair agreement
             </motion.p>
             <motion.p variants={item} className="max-w-xl text-base text-muted-foreground">
-              Body copy stays friendly and plain-spoken. No jargon, no fine print energy —
+              Body copy stays friendly and plain-spoken. No jargon, no fine print energy,
               just clear words that reduce anxiety and build confidence between two people.
             </motion.p>
           </motion.div>
@@ -193,7 +193,7 @@ export default function DesignSystemPage() {
         {/* Sample deal card */}
         <section>
           <h2 className="mb-5 text-sm font-semibold uppercase tracking-widest text-muted-foreground">
-            Component — Deal card
+            Component · Deal card
           </h2>
           <motion.div
             variants={item}
@@ -220,7 +220,7 @@ export default function DesignSystemPage() {
               </div>
               <p className="text-sm text-muted-foreground">
                 <span className="font-semibold text-foreground">Tom</span> &amp;{" "}
-                <span className="font-semibold text-foreground">Jess</span> — meetup Sat 2pm
+                <span className="font-semibold text-foreground">Jess</span>, meetup Sat 2pm
               </p>
             </div>
 
@@ -232,7 +232,7 @@ export default function DesignSystemPage() {
 
         <motion.p variants={item} className="border-t border-border pt-6 text-sm text-muted-foreground">
           Motion language: gentle spring physics, soft fades with a small rise, calm hover lifts.
-          Nothing sharp or sudden — movement should feel reassuring.
+          Nothing sharp or sudden. Movement should feel reassuring.
         </motion.p>
       </motion.div>
     </main>

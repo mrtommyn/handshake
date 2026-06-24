@@ -20,7 +20,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Handshake — Every deal starts with a handshake",
+  title: "Handshake: Every deal starts with a handshake",
   description:
     "Handshake helps everyday people safely do deals with each other. Verify who you're dealing with, agree on the terms, and walk away knowing the deal feels safe.",
 };
