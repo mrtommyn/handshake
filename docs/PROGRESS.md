@@ -166,7 +166,14 @@ rental, roommate, custom.
   - [x] `/app/new` stub; marketing Sign in / Start a Handshake now link to `/login`
   - Note: Button is Base UI. For link-buttons use `render={<Link/>}` AND `nativeButton={false}`
     (NOT `asChild`). Without nativeButton={false} it logs a console warning.
-- [ ] Start-a-Handshake flow (choose mode, deal details, invite)
+- [~] Verify someone (standalone) flow
+  - [x] DB: standalone verification columns + RLS (migration `supabase/migrations/20260627_*`)
+  - [x] Stripe wired (test keys in `.env.local`, `stripe` SDK installed)
+  - [x] `/app/new` mode chooser (Verify someone live; agreement coming)
+  - [x] `/app/verify/new` form → creates verification + secure invite token
+  - [x] `/app/verify/[id]` status page + copy-link; dashboard lists verifications
+  - [ ] Public invite landing `/verify/[token]` (needs Supabase service role key)
+  - [ ] Stripe Identity session + result handling (return + webhook)
 - [ ] Stripe Identity integration + webhook
 - [ ] Agreement templates + builder + e-signature
 - [ ] PDF generation (unique contract ID) + email delivery
@@ -196,6 +203,19 @@ rental, roommate, custom.
 ---
 
 ## Session Log (append-only, newest first)
+
+### 2026-06-27 — Verify someone flow (initiator side) + Stripe wired
+- Set up Stripe (sandbox/test). Keys in `.env.local` (NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+  STRIPE_SECRET_KEY); installed `stripe` SDK. Stripe Identity test mode = free for dev.
+- DB migration (run via SQL Editor — MCP was flaky): standalone verification columns
+  (requester_id, subject_name/phone/email, invite_token, invited_at) + requester RLS.
+  Saved as `supabase/migrations/20260627_standalone_verifications.sql`. Hand-updated
+  `database.types.ts`.
+- Built initiator side: `/app/new` chooser, `/app/verify/new` form (creates verification +
+  token), `/app/verify/[id]` status page with copy-link, dashboard lists verifications.
+- NEXT (needs Supabase service role key): public `/verify/[token]` landing page + Stripe
+  Identity session creation + result handling (return URL now, webhook for prod).
+- Note: Supabase MCP kept dropping; used the dashboard SQL Editor for the migration instead.
 
 ### 2026-06-27 — Phase 2 Step 2: phone-first auth + app shell + dashboard
 - User set up Twilio (trial) + a Twilio Verify service, and configured it in Supabase Auth

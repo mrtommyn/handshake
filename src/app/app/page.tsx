@@ -3,6 +3,13 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/button";
 
+const vStatus: Record<string, { bg: string; fg: string; label: string }> = {
+  pending: { bg: "var(--warm)", fg: "var(--warm-foreground)", label: "Waiting" },
+  verified: { bg: "var(--verified)", fg: "var(--verified-foreground)", label: "Verified" },
+  not_confirmed: { bg: "var(--secondary)", fg: "var(--secondary-foreground)", label: "Not confirmed" },
+  declined: { bg: "var(--destructive)", fg: "#fff", label: "Declined" },
+};
+
 export default async function DashboardPage() {
   const supabase = await createClient();
   const {
@@ -20,6 +27,12 @@ export default async function DashboardPage() {
   const { data: deals } = await supabase
     .from("deals")
     .select("*")
+    .order("created_at", { ascending: false });
+
+  const { data: verifications } = await supabase
+    .from("verifications")
+    .select("*")
+    .eq("requester_id", user.id)
     .order("created_at", { ascending: false });
 
   const greetingName = profile?.full_name?.split(" ")[0] ?? "there";
@@ -73,47 +86,85 @@ export default async function DashboardPage() {
         )}
       </div>
 
-      {/* deals */}
-      <h2 className="mt-10 text-sm font-semibold uppercase tracking-widest text-muted-foreground">
-        Your deals
-      </h2>
-
-      {deals && deals.length > 0 ? (
-        <ul className="mt-4 space-y-3">
-          {deals.map((deal) => (
-            <li
-              key={deal.id}
-              className="flex items-center justify-between rounded-2xl border border-border bg-card p-5"
-            >
-              <div>
-                <p className="font-semibold">{deal.title ?? "Untitled deal"}</p>
-                <p className="text-sm capitalize text-muted-foreground">
-                  {deal.deal_type.replace(/_/g, " ")} · {deal.status}
-                </p>
-              </div>
-              {deal.amount != null && (
-                <p className="text-lg font-bold text-primary">
-                  ${Number(deal.amount).toLocaleString()}
-                </p>
-              )}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <div className="mt-4 rounded-3xl border border-dashed border-border bg-card/50 p-10 text-center">
-          <p className="text-lg font-semibold">No handshakes yet</p>
-          <p className="mx-auto mt-1 max-w-sm text-sm text-muted-foreground">
-            Start one to verify someone, write up an agreement, or both. It only takes a minute.
-          </p>
-          <Button
-            render={<Link href="/app/new" />}
-            nativeButton={false}
-            className="mt-5 rounded-full"
-          >
-            Start your first Handshake
-          </Button>
-        </div>
+      {/* verifications */}
+      {verifications && verifications.length > 0 && (
+        <section className="mt-10">
+          <h2 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">
+            Verifications
+          </h2>
+          <ul className="mt-4 space-y-3">
+            {verifications.map((v) => {
+              const s = vStatus[v.status] ?? vStatus.pending;
+              return (
+                <li key={v.id}>
+                  <Link
+                    href={`/app/verify/${v.id}`}
+                    className="flex items-center justify-between rounded-2xl border border-border bg-card p-5 transition-shadow hover:shadow-[0_12px_30px_-16px_rgba(42,35,32,0.25)]"
+                  >
+                    <div>
+                      <p className="font-semibold">{v.subject_name}</p>
+                      <p className="text-sm text-muted-foreground">Identity check</p>
+                    </div>
+                    <span
+                      className="rounded-full px-3 py-1 text-xs font-semibold"
+                      style={{ background: s.bg, color: s.fg }}
+                    >
+                      {s.label}
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
       )}
+
+      {/* agreements */}
+      {deals && deals.length > 0 && (
+        <section className="mt-10">
+          <h2 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">
+            Agreements
+          </h2>
+          <ul className="mt-4 space-y-3">
+            {deals.map((deal) => (
+              <li
+                key={deal.id}
+                className="flex items-center justify-between rounded-2xl border border-border bg-card p-5"
+              >
+                <div>
+                  <p className="font-semibold">{deal.title ?? "Untitled deal"}</p>
+                  <p className="text-sm capitalize text-muted-foreground">
+                    {deal.deal_type.replace(/_/g, " ")} · {deal.status}
+                  </p>
+                </div>
+                {deal.amount != null && (
+                  <p className="text-lg font-bold text-primary">
+                    ${Number(deal.amount).toLocaleString()}
+                  </p>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {/* empty state */}
+      {(!verifications || verifications.length === 0) &&
+        (!deals || deals.length === 0) && (
+          <div className="mt-10 rounded-3xl border border-dashed border-border bg-card/50 p-10 text-center">
+            <p className="text-lg font-semibold">Nothing here yet</p>
+            <p className="mx-auto mt-1 max-w-sm text-sm text-muted-foreground">
+              Start by verifying someone, or writing up an agreement. It only takes a minute.
+            </p>
+            <Button
+              render={<Link href="/app/new" />}
+              nativeButton={false}
+              className="mt-5 rounded-full"
+            >
+              Start your first Handshake
+            </Button>
+          </div>
+        )}
     </div>
   );
 }

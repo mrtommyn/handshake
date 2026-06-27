@@ -310,6 +310,12 @@ export type Database = {
           result: Json | null
           status: Database["public"]["Enums"]["verification_status"]
           subject_profile_id: string | null
+          requester_id: string | null
+          subject_name: string | null
+          subject_phone: string | null
+          subject_email: string | null
+          invite_token: string | null
+          invited_at: string | null
         }
         Insert: {
           completed_at?: string | null
@@ -322,6 +328,12 @@ export type Database = {
           result?: Json | null
           status?: Database["public"]["Enums"]["verification_status"]
           subject_profile_id?: string | null
+          requester_id?: string | null
+          subject_name?: string | null
+          subject_phone?: string | null
+          subject_email?: string | null
+          invite_token?: string | null
+          invited_at?: string | null
         }
         Update: {
           completed_at?: string | null
@@ -334,8 +346,21 @@ export type Database = {
           result?: Json | null
           status?: Database["public"]["Enums"]["verification_status"]
           subject_profile_id?: string | null
+          requester_id?: string | null
+          subject_name?: string | null
+          subject_phone?: string | null
+          subject_email?: string | null
+          invite_token?: string | null
+          invited_at?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "verifications_requester_id_fkey"
+            columns: ["requester_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "verifications_deal_id_fkey"
             columns: ["deal_id"]
