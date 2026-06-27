@@ -16,9 +16,10 @@
 
 ## Current Status
 
-**Phase:** Phase 2 underway. Steps 1-2 done: Supabase foundation + phone-first auth (Twilio
-Verify) + protected app shell + dashboard. Next: the Start-a-Handshake flow (choose mode,
-deal details, invite the other party).
+**Phase:** Phase 2 underway. Done: Supabase foundation, phone-first auth, app shell/dashboard,
+and the full **Verify someone** flow (create → secure link → public ID + selfie check via
+Stripe Identity test mode → Verified status). Next: Stripe webhook for prod, auto-send invites
+(SMS/email), then the agreement builder.
 **Last updated:** 2026-06-27
 
 One-liner: Full marketing home page live at `/` (Hero → Two ways → How it works → Use cases →
@@ -172,9 +173,13 @@ rental, roommate, custom.
   - [x] `/app/new` mode chooser (Verify someone live; agreement coming)
   - [x] `/app/verify/new` form → creates verification + secure invite token
   - [x] `/app/verify/[id]` status page + copy-link; dashboard lists verifications
-  - [ ] Public invite landing `/verify/[token]` (needs Supabase service role key)
-  - [ ] Stripe Identity session + result handling (return + webhook)
-- [ ] Stripe Identity integration + webhook
+  - [x] Server-only admin client (`src/lib/supabase/admin.ts`) using service role key
+  - [x] Public invite landing `/verify/[token]` (reads via admin client, no account needed)
+  - [x] Stripe Identity session (`/verify/[token]/actions.ts`, `src/lib/stripe.ts`,
+    type=document + require_matching_selfie) + result page `/verify/[token]/done`
+    (retrieves session on return, updates status to verified/not_confirmed)
+  - [ ] Stripe webhook for production reliability (return-based update works for dev)
+  - [ ] Auto-send invite by SMS/email (currently copy-link); mutual verification
 - [ ] Agreement templates + builder + e-signature
 - [ ] PDF generation (unique contract ID) + email delivery
 - [ ] Admin dashboard
@@ -203,6 +208,18 @@ rental, roommate, custom.
 ---
 
 ## Session Log (append-only, newest first)
+
+### 2026-06-27 — Verify someone flow completed (public page + Stripe Identity)
+- Added Supabase service role/secret key to `.env.local`; built server-only admin client
+  (`src/lib/supabase/admin.ts`) and Stripe client (`src/lib/stripe.ts`).
+- Public landing `/verify/[token]` (reads verification via admin client, shows requester +
+  steps + privacy). "Verify my identity" → server action creates a Stripe Identity session
+  (document + selfie) and redirects to Stripe's hosted flow.
+- Return page `/verify/[token]/done` retrieves the session and updates status
+  (verified / not_confirmed / processing). Initiator sees Verified on their status page.
+- Verified live: real invite link loads 200, admin client + Stripe wired. End-to-end testable
+  in Stripe TEST mode (free, simulated outcomes).
+- TODO: Stripe webhook for production (return-based is fine for dev); auto-send invites.
 
 ### 2026-06-27 — Verify someone flow (initiator side) + Stripe wired
 - Set up Stripe (sandbox/test). Keys in `.env.local` (NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
