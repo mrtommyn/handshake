@@ -181,7 +181,10 @@ rental, roommate, custom.
   - [x] Stripe webhook built (`/api/webhooks/stripe-identity`) — updates status by provider_ref;
     proxy matcher excludes `/api`. Activate at deploy (set STRIPE_WEBHOOK_SECRET + register URL).
     Return-based update still covers dev.
-  - [ ] Auto-send invite by SMS/email (currently copy-link); mutual verification
+  - [x] Auto-send invite by SMS (Twilio number +19165458033 + Programmable Messaging;
+    "Text them the link" button on status page; `src/app/app/verify/actions.ts`,
+    `text-link-button.tsx`). Trial only texts verified numbers; US->AU delivery can be flaky.
+  - [ ] Auto-send by email (Resend); mutual verification ("verify me too")
 - [ ] Agreement templates + builder + e-signature
 - [ ] PDF generation (unique contract ID) + email delivery
 - [ ] Admin dashboard
@@ -210,6 +213,15 @@ rental, roommate, custom.
 ---
 
 ## Session Log (append-only, newest first)
+
+### 2026-06-27 — Stripe webhook + auto-send invite SMS (Twilio)
+- Built Stripe Identity webhook `/api/webhooks/stripe-identity` (updates status by provider_ref);
+  excluded `/api` from the proxy matcher. Activates at deploy (STRIPE_WEBHOOK_SECRET + register URL).
+- Auto-send SMS: user bought a US Twilio number (+19165458033) for Programmable Messaging.
+  Added TWILIO_ACCOUNT_SID/AUTH_TOKEN/PHONE_NUMBER to `.env.local`; installed `twilio` SDK.
+  Built `sendInviteSms` server action + "Text them the link" button on the verify status page.
+  Trial caveat: only texts Twilio-verified numbers; US->AU delivery on trial can be flaky.
+  Note: for production AU, use an AU sender / Alphanumeric Sender ID via a Messaging Service.
 
 ### 2026-06-27 — Verify someone flow completed (public page + Stripe Identity)
 - Added Supabase service role/secret key to `.env.local`; built server-only admin client

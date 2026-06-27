@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { CopyLink } from "./copy-link";
+import { TextLinkButton } from "./text-link-button";
 
 const statusStyles: Record<string, { bg: string; fg: string; label: string }> = {
   pending: { bg: "var(--warm)", fg: "var(--warm-foreground)", label: "Waiting on them" },
@@ -65,6 +66,15 @@ export default async function VerificationDetailPage({
           <div className="mt-4">
             <CopyLink token={v.invite_token!} />
           </div>
+
+          {v.subject_phone && (
+            <div className="mt-5 border-t border-border pt-5">
+              <p className="mb-2 text-sm text-muted-foreground">
+                Or have Handshake text it to {v.subject_phone}:
+              </p>
+              <TextLinkButton verificationId={v.id} />
+            </div>
+          )}
         </div>
       )}
 
