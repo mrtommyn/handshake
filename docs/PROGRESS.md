@@ -16,10 +16,9 @@
 
 ## Current Status
 
-**Phase:** Phase 1 — brand site home page COMPLETE (all sections + Lenis smooth scroll).
-Next: either polish/QA the home page, add more marketing pages, or start Phase 2 (Supabase +
-auth + the product app).
-**Last updated:** 2026-06-22
+**Phase:** Phase 2 underway. Step 1 done: Supabase project created + schema + RLS + client
+wiring (proxy.ts session refresh). Next: phone-first auth UI + app shell + light dashboard.
+**Last updated:** 2026-06-27
 
 One-liner: Full marketing home page live at `/` (Hero → Two ways → How it works → Use cases →
 Trust & safety → Final CTA → Footer), dual-mode product framing, Apricot brand, smooth scroll.
@@ -40,8 +39,14 @@ Trust & safety → Final CTA → Footer), dual-mode product framing, Apricot bra
 - **Build order:** (1) design system + brand site → (2) Supabase+auth+deal creation →
   (3) Stripe Identity verification → (4) agreement builder + e-sign + PDF + email/SMS → (5) admin + deploy
 - **Platform:** Web, mobile-first responsive. No native app for MVP.
-- **Invites:** Email (Resend) **+ SMS (Twilio)** — both in MVP (Phase 4).
-- **Identity provider:** Stripe Identity.
+- **Invites:** Email (Resend) **+ SMS (Twilio)**. SMS is the primary mobile on-ramp.
+- **Auth:** phone-first (SMS one-time code via Twilio) + email backup. Mobile-first.
+- **Supabase:** driven by the assistant via the connected Supabase tool (user authorized).
+- **Identity provider:** Stripe Identity (the actual ID + liveness check; SMS only delivers
+  the link and powers phone sign-in, it is NOT the KYC itself).
+- **Supabase project:** name "Handshake", ref `bmzxffxdmpsjzheyslxv`, region ap-southeast-2
+  (Sydney), org "Tommy". URL https://bmzxffxdmpsjzheyslxv.supabase.co. Keys in `.env.local`
+  (gitignored); placeholders in `.env.example`.
 - **Brand assets:** AI-generated via nano-banana (logo + Headspace-style illustration set).
 - **Copy voice rule:** NO em dashes (—) anywhere in user-facing copy. Use commas, periods,
   parentheses, or "·" instead. (User preference, applies to all copy going forward.)
@@ -132,7 +137,10 @@ rental, roommate, custom.
     1-colour variants, favicon at `src/app/icon.svg`. Shown in `/design` Logo section.
   - [ ] Illustration set (Headspace-style) — gated on Gemini billing; decide later
 - [ ] Define information architecture / routes (brand site + product app + invite flow)
-- [ ] Data model in Supabase (users, deals, parties, verifications, agreements, signatures, audit)
+- [x] Data model in Supabase (profiles, deals, deal_parties, verifications, agreements,
+  signatures, audit_log) with RLS, auto-profile-on-signup, hardened functions
+- [x] Supabase client wiring (@supabase/ssr: client.ts, server.ts, proxy.ts session refresh,
+  database.types.ts, env files)
 - [x] Brand site home page (complete)
   - [x] Site header (logo, nav, CTA) — `src/components/site/site-header.tsx`
   - [x] Hero (animated headline, CTAs, floating deal-card visual) — `src/components/site/hero.tsx`
@@ -171,6 +179,20 @@ rental, roommate, custom.
 ---
 
 ## Session Log (append-only, newest first)
+
+### 2026-06-27 — Phase 2 Step 1: Supabase foundation
+- Reframed SMS: it is the mobile on-ramp (invite links + phone sign-in codes), NOT the KYC.
+  Stripe Identity does the actual ID check. Pulled SMS/phone forward to Step 2.
+- Created Supabase project "Handshake" (ref bmzxffxdmpsjzheyslxv, Sydney, free tier).
+- Applied schema migration (profiles, deals, deal_parties, verifications [standalone-capable],
+  agreements, signatures, audit_log) + enums + indexes + RLS policies + updated_at trigger +
+  auto-profile-on-signup trigger. Hardened functions (search_path, revoked RPC execute).
+  Security advisors: clean.
+- Wired @supabase/ssr: `src/lib/supabase/{client,server,database.types}.ts`, `src/proxy.ts`
+  (session refresh; migrated from deprecated middleware to Next 16 proxy convention),
+  `.env.local` (gitignored) + `.env.example` (committed, with !.env.example in .gitignore).
+- Dev server verified: boots clean, loads .env.local, proxy runs, HTTP 200.
+- Next: phone-first auth UI (SMS code) + app shell + light dashboard. Twilio needed for live SMS.
 
 ### 2026-06-22 — Home page completed (Use cases, Trust, Footer, Lenis)
 - Built `use-cases.tsx` (6-card grid: marketplace, vehicles, friend loans, rentals,
