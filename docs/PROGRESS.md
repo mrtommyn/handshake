@@ -189,7 +189,16 @@ rental, roommate, custom.
     public invite page shows "✓ verified Handshake user" badge for a verified requester;
     webhook also flips profile for self-checks.
   - [ ] Auto-send by email (Resend); requester profile name (currently "Someone on Handshake")
-- [ ] Agreement templates + builder + e-signature
+- [~] Agreement builder (#4)
+  - [x] Templates config (marketplace_sale, vehicle_sale, friend_loan, rental, custom) —
+    `src/lib/agreement-templates.ts` (fields + plain-English render)
+  - [x] Create flow `/app/agreement/new` (pick template → fill fields → add party →
+    creates deal[mode=agree] + deal_parties + agreement); `/app/new` card activated
+  - [x] Agreement detail `/app/agreement/[id]` (content, parties, sign status, copy-link),
+    initiator "Sign it" (`actions.ts` signAsInitiator → marks signed when both sign);
+    shared `src/components/copy-link.tsx`
+  - [ ] Public sign page `/agreement/[token]` (counterparty reviews + signs, no account)
+  - [ ] Signed PDF (unique code, names, terms, signatures, verification status) + Storage + download
 - [ ] PDF generation (unique contract ID) + email delivery
 - [ ] Admin dashboard
 
@@ -217,6 +226,14 @@ rental, roommate, custom.
 ---
 
 ## Session Log (append-only, newest first)
+
+### 2026-06-28 — Agreement builder, part 1 (templates + create + sign-your-side)
+- Templates: marketplace_sale, vehicle_sale, friend_loan, rental, custom (`agreement-templates.ts`).
+- `/app/agreement/new` create flow (client, inserts deal+parties+agreement via RLS).
+- `/app/agreement/[id]` detail: rendered content, party sign-status, copy-link to
+  `/agreement/[token]`, initiator "Sign it" (signAsInitiator → status 'signed' when both sign).
+- Activated "Make an agreement" on `/app/new`. Shared `components/copy-link.tsx`.
+- Verified compiles. NEXT: public sign page `/agreement/[token]` + signed PDF + Storage.
 
 ### 2026-06-27 — Mutual verification (self-verify + requester badge)
 - SMS auto-send confirmed working end-to-end by user (text received, ID check, Verified).

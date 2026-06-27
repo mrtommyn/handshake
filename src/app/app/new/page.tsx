@@ -34,22 +34,25 @@ export default function NewHandshakePage() {
           </div>
         </Link>
 
-        <div className="rounded-3xl border border-dashed border-border bg-card/50 p-6 opacity-70">
+        <Link
+          href="/app/agreement/new"
+          className="group rounded-3xl border border-border bg-card p-6 transition-shadow hover:shadow-[0_12px_30px_-16px_rgba(42,35,32,0.25)]"
+        >
           <div className="flex items-center gap-4">
             <span
               className="grid size-12 shrink-0 place-items-center rounded-2xl text-lg font-bold"
-              style={{ background: "var(--secondary)", color: "var(--secondary-foreground)" }}
+              style={{ background: "#ffeddf", color: "#f8843a" }}
             >
               ✎
             </span>
             <div>
               <h2 className="text-lg font-bold">Make an agreement</h2>
               <p className="text-sm text-muted-foreground">
-                Put the deal in writing and both sign. Coming next.
+                Put the deal in writing and both sign.
               </p>
             </div>
           </div>
-        </div>
+        </Link>
       </div>
     </div>
   );
