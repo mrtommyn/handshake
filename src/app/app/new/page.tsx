@@ -9,7 +9,12 @@ export default function NewHandshakePage() {
         This is where you will choose to verify someone, write up an agreement, or both, then
         add the details and invite the other person. We are building this flow next.
       </p>
-      <Button render={<Link href="/app" />} variant="outline" className="mt-6 rounded-full">
+      <Button
+        render={<Link href="/app" />}
+        nativeButton={false}
+        variant="outline"
+        className="mt-6 rounded-full"
+      >
         Back to dashboard
       </Button>
     </div>

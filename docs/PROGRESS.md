@@ -161,7 +161,8 @@ rental, roommate, custom.
   - [x] Protected app shell + sign out — `src/app/app/{layout.tsx,actions.ts}`
   - [x] Dashboard (greeting, identity status, deals list/empty state) — `src/app/app/page.tsx`
   - [x] `/app/new` stub; marketing Sign in / Start a Handshake now link to `/login`
-  - Note: Button is Base UI (use `render={<Link/>}`, NOT `asChild`)
+  - Note: Button is Base UI. For link-buttons use `render={<Link/>}` AND `nativeButton={false}`
+    (NOT `asChild`). Without nativeButton={false} it logs a console warning.
 - [ ] Start-a-Handshake flow (choose mode, deal details, invite)
 - [ ] Stripe Identity integration + webhook
 - [ ] Agreement templates + builder + e-signature

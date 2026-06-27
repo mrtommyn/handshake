@@ -32,7 +32,12 @@ export default async function DashboardPage() {
           <h1 className="text-3xl font-extrabold tracking-tight">Hi {greetingName}</h1>
           <p className="mt-1 text-muted-foreground">Here are your handshakes.</p>
         </div>
-        <Button render={<Link href="/app/new" />} size="lg" className="rounded-full">
+        <Button
+          render={<Link href="/app/new" />}
+          nativeButton={false}
+          size="lg"
+          className="rounded-full"
+        >
           Start a Handshake
         </Button>
       </div>
@@ -100,7 +105,11 @@ export default async function DashboardPage() {
           <p className="mx-auto mt-1 max-w-sm text-sm text-muted-foreground">
             Start one to verify someone, write up an agreement, or both. It only takes a minute.
           </p>
-          <Button render={<Link href="/app/new" />} className="mt-5 rounded-full">
+          <Button
+            render={<Link href="/app/new" />}
+            nativeButton={false}
+            className="mt-5 rounded-full"
+          >
             Start your first Handshake
           </Button>
         </div>

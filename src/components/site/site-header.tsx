@@ -31,12 +31,17 @@ export function SiteHeader() {
         <div className="flex items-center gap-2">
           <Button
             render={<Link href="/login" />}
+            nativeButton={false}
             variant="ghost"
             className="hidden rounded-full sm:inline-flex"
           >
             Sign in
           </Button>
-          <Button render={<Link href="/login" />} className="rounded-full">
+          <Button
+            render={<Link href="/login" />}
+            nativeButton={false}
+            className="rounded-full"
+          >
             Start a Handshake
           </Button>
         </div>
