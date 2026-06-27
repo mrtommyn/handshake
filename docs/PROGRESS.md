@@ -47,7 +47,10 @@ Trust & safety → Final CTA → Footer), dual-mode product framing, Apricot bra
   (Apple mainly needed once a native iPhone app exists).
 - **Supabase:** driven by the assistant via the connected Supabase tool (user authorized).
 - **Identity provider:** Stripe Identity (the actual ID + liveness check; SMS only delivers
-  the link and powers phone sign-in, it is NOT the KYC itself).
+  the link and powers phone sign-in, it is NOT the KYC itself). Build/test in Stripe TEST mode
+  (free) first; go live (~$1.50/check) later.
+- **First feature build = "Verify someone" (standalone).** Invite delivery v1 = copy/share
+  link (no auto-send yet); auto SMS (Twilio number) / email (Resend) come later.
 - **Supabase project:** name "Handshake", ref `bmzxffxdmpsjzheyslxv`, region ap-southeast-2
   (Sydney), org "Tommy". URL https://bmzxffxdmpsjzheyslxv.supabase.co. Keys in `.env.local`
   (gitignored); placeholders in `.env.example`.
