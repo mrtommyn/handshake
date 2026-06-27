@@ -2,6 +2,8 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
+import { generateAgreementPdf } from "@/lib/agreement-pdf";
 
 /** Records the initiator's signature; marks the agreement signed once both parties have signed. */
 export async function signAsInitiator(
@@ -51,6 +53,7 @@ export async function signAsInitiator(
       .from("agreements")
       .update({ status: "signed", signed_at: new Date().toISOString() })
       .eq("id", agreementId);
+    await generateAgreementPdf(createAdminClient(), agreementId);
   }
 
   revalidatePath(`/app/agreement/${agreementId}`);

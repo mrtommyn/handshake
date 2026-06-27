@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
+import { Button } from "@/components/ui/button";
 import { CopyLink } from "@/components/copy-link";
 import { SignButton } from "./sign-button";
 
@@ -35,6 +37,13 @@ export default async function AgreementDetailPage({
   const initiatorSigned = initiator ? signed.has(initiator.id) : false;
   const counterpartySigned = counterparty ? signed.has(counterparty.id) : false;
   const fullySigned = ag.status === "signed";
+
+  let pdfUrl: string | null = null;
+  if (fullySigned && ag.pdf_path) {
+    const admin = createAdminClient();
+    const { data } = await admin.storage.from("agreements").createSignedUrl(ag.pdf_path, 3600);
+    pdfUrl = data?.signedUrl ?? null;
+  }
 
   return (
     <div className="mx-auto max-w-xl py-6">
@@ -121,10 +130,19 @@ export default async function AgreementDetailPage({
           <span className="grid size-10 place-items-center rounded-full bg-verified text-verified-foreground">
             ✓
           </span>
-          <div>
+          <div className="flex-1">
             <p className="font-bold text-verified">Both parties have signed</p>
-            <p className="text-sm text-muted-foreground">A downloadable signed PDF is coming next.</p>
+            <p className="text-sm text-muted-foreground">Your signed agreement is ready.</p>
           </div>
+          {pdfUrl && (
+            <Button
+              render={<a href={pdfUrl} target="_blank" rel="noopener noreferrer" />}
+              nativeButton={false}
+              className="shrink-0 rounded-2xl"
+            >
+              Download PDF
+            </Button>
+          )}
         </div>
       )}
     </div>

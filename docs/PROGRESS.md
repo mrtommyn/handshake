@@ -197,9 +197,12 @@ rental, roommate, custom.
   - [x] Agreement detail `/app/agreement/[id]` (content, parties, sign status, copy-link),
     initiator "Sign it" (`actions.ts` signAsInitiator → marks signed when both sign);
     shared `src/components/copy-link.tsx`
-  - [ ] Public sign page `/agreement/[token]` (counterparty reviews + signs, no account)
-  - [ ] Signed PDF (unique code, names, terms, signatures, verification status) + Storage + download
-- [ ] PDF generation (unique contract ID) + email delivery
+  - [x] Public sign page `/agreement/[token]` (counterparty reviews + types name + "I agree")
+  - [x] Signed PDF via pdf-lib (`src/lib/agreement-pdf.ts`) → Supabase Storage bucket
+    "agreements" (auto-created, private) → signed-URL download on both the initiator page and
+    the public page. Generated when the second party signs (from either sign action).
+- [x] PDF generation (unique contract ID) — done as part of agreement builder
+- [ ] Email/SMS delivery of the signed PDF + invite (currently copy-link)
 - [ ] Admin dashboard
 
 ---
@@ -226,6 +229,17 @@ rental, roommate, custom.
 ---
 
 ## Session Log (append-only, newest first)
+
+### 2026-06-28 — Agreement builder, part 2 (public sign + signed PDF) — feature complete
+- Public sign page `/agreement/[token]` (admin-client read, no account): review content, type
+  name + "I agree" → `signAsCounterparty`. Shows "you've signed / both signed" states.
+- Signed PDF: `src/lib/agreement-pdf.ts` (pdf-lib, word-wrap, char sanitise for em dashes/smart
+  quotes) → uploads to Storage bucket "agreements" (auto-created private) → pdf_path saved.
+  Generated when the 2nd party signs (both signAsInitiator and signAsCounterparty trigger it).
+- Download via signed URL on both the initiator page and the public page.
+- Installed `pdf-lib`. Verified compiles (public page 404s on bad token, app routes OK).
+- Agreement builder feature complete. Remaining polish: email/SMS delivery, profile name,
+  more templates, admin dashboard, deploy.
 
 ### 2026-06-28 — Agreement builder, part 1 (templates + create + sign-your-side)
 - Templates: marketplace_sale, vehicle_sale, friend_loan, rental, custom (`agreement-templates.ts`).
