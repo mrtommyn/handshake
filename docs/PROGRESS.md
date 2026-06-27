@@ -178,7 +178,9 @@ rental, roommate, custom.
   - [x] Stripe Identity session (`/verify/[token]/actions.ts`, `src/lib/stripe.ts`,
     type=document + require_matching_selfie) + result page `/verify/[token]/done`
     (retrieves session on return, updates status to verified/not_confirmed)
-  - [ ] Stripe webhook for production reliability (return-based update works for dev)
+  - [x] Stripe webhook built (`/api/webhooks/stripe-identity`) — updates status by provider_ref;
+    proxy matcher excludes `/api`. Activate at deploy (set STRIPE_WEBHOOK_SECRET + register URL).
+    Return-based update still covers dev.
   - [ ] Auto-send invite by SMS/email (currently copy-link); mutual verification
 - [ ] Agreement templates + builder + e-signature
 - [ ] PDF generation (unique contract ID) + email delivery
