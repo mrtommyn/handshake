@@ -16,8 +16,9 @@
 
 ## Current Status
 
-**Phase:** Phase 2 underway. Step 1 done: Supabase project created + schema + RLS + client
-wiring (proxy.ts session refresh). Next: phone-first auth UI + app shell + light dashboard.
+**Phase:** Phase 2 underway. Steps 1-2 done: Supabase foundation + phone-first auth (Twilio
+Verify) + protected app shell + dashboard. Next: the Start-a-Handshake flow (choose mode,
+deal details, invite the other party).
 **Last updated:** 2026-06-27
 
 One-liner: Full marketing home page live at `/` (Hero → Two ways → How it works → Use cases →
@@ -41,6 +42,9 @@ Trust & safety → Final CTA → Footer), dual-mode product framing, Apricot bra
 - **Platform:** Web, mobile-first responsive. No native app for MVP.
 - **Invites:** Email (Resend) **+ SMS (Twilio)**. SMS is the primary mobile on-ramp.
 - **Auth:** phone-first (SMS one-time code via Twilio) + email backup. Mobile-first.
+  Login is occasional (session persists; people stay logged in, only re-enter a code on first
+  use / new device / after a long gap). Social logins (Google, Apple) deferred to later
+  (Apple mainly needed once a native iPhone app exists).
 - **Supabase:** driven by the assistant via the connected Supabase tool (user authorized).
 - **Identity provider:** Stripe Identity (the actual ID + liveness check; SMS only delivers
   the link and powers phone sign-in, it is NOT the KYC itself).
@@ -150,6 +154,15 @@ rental, roommate, custom.
   - [x] Trust & safety (4 points) — `src/components/site/trust-safety.tsx`
   - [x] Final CTA + footer — `src/components/site/site-footer.tsx`
   - [x] Lenis smooth scroll — `src/components/smooth-scroll.tsx` (+ CSS in globals.css)
+- [x] Phone-first auth + app shell + dashboard (Phase 2 Step 2)
+  - [x] Twilio Verify (SMS codes) configured in Supabase Auth (phone provider on, Verify SID)
+  - [x] `/login` (phone OTP primary, email magic-link backup) — `src/app/login/page.tsx`
+  - [x] Email callback — `src/app/auth/callback/route.ts`
+  - [x] Protected app shell + sign out — `src/app/app/{layout.tsx,actions.ts}`
+  - [x] Dashboard (greeting, identity status, deals list/empty state) — `src/app/app/page.tsx`
+  - [x] `/app/new` stub; marketing Sign in / Start a Handshake now link to `/login`
+  - Note: Button is Base UI (use `render={<Link/>}`, NOT `asChild`)
+- [ ] Start-a-Handshake flow (choose mode, deal details, invite)
 - [ ] Stripe Identity integration + webhook
 - [ ] Agreement templates + builder + e-signature
 - [ ] PDF generation (unique contract ID) + email delivery
@@ -179,6 +192,19 @@ rental, roommate, custom.
 ---
 
 ## Session Log (append-only, newest first)
+
+### 2026-06-27 — Phase 2 Step 2: phone-first auth + app shell + dashboard
+- User set up Twilio (trial) + a Twilio Verify service, and configured it in Supabase Auth
+  (Phone provider on, SMS provider = Twilio Verify, Account SID + Auth Token + Verify SID).
+- Built `/login`: phone OTP primary (signInWithOtp/verifyOtp type sms), email magic-link
+  backup (+ `/auth/callback` route). Mobile-first, on-brand.
+- Built protected app area: `src/app/app/layout.tsx` (redirects to /login if no user),
+  `actions.ts` (sign out), `page.tsx` (dashboard: greeting, identity-verified status,
+  deals list with empty state), `/app/new` stub.
+- Wired marketing header Sign in / Start a Handshake to `/login`.
+- Gotcha: shadcn Button here is Base UI based, so use `render={<Link/>}` not `asChild`.
+- Verified: /login 200, /app redirects 307 when logged out, clean compile.
+- Next: user to test phone login on their own (verified) number; then build Start-a-Handshake.
 
 ### 2026-06-27 — Phase 2 Step 1: Supabase foundation
 - Reframed SMS: it is the mobile on-ramp (invite links + phone sign-in codes), NOT the KYC.

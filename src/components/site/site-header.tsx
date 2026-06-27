@@ -29,10 +29,16 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Button variant="ghost" className="hidden rounded-full sm:inline-flex">
+          <Button
+            render={<Link href="/login" />}
+            variant="ghost"
+            className="hidden rounded-full sm:inline-flex"
+          >
             Sign in
           </Button>
-          <Button className="rounded-full">Start a Handshake</Button>
+          <Button render={<Link href="/login" />} className="rounded-full">
+            Start a Handshake
+          </Button>
         </div>
       </div>
     </header>
