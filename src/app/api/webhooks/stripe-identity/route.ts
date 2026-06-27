@@ -41,7 +41,29 @@ export async function POST(req: NextRequest) {
     if (status === "verified") update.completed_at = new Date().toISOString();
 
     const admin = createAdminClient();
+    const { data: row } = await admin
+      .from("verifications")
+      .select("requester_id, subject_profile_id")
+      .eq("provider_ref", session.id)
+      .maybeSingle();
+
     await admin.from("verifications").update(update).eq("provider_ref", session.id);
+
+    // If this was someone verifying themselves, also flip their profile flag.
+    if (
+      status === "verified" &&
+      row?.subject_profile_id &&
+      row.subject_profile_id === row.requester_id
+    ) {
+      await admin
+        .from("profiles")
+        .update({
+          identity_verified: true,
+          identity_verified_at: new Date().toISOString(),
+          identity_provider: "stripe_identity",
+        })
+        .eq("id", row.subject_profile_id);
+    }
   }
 
   return NextResponse.json({ received: true });

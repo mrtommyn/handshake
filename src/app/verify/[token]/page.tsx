@@ -22,11 +22,12 @@ export default async function PublicVerifyPage({
 
   const { data: requester } = await admin
     .from("profiles")
-    .select("full_name")
+    .select("full_name, identity_verified")
     .eq("id", v.requester_id!)
     .single();
 
   const requesterName = requester?.full_name?.trim() || "Someone on Handshake";
+  const requesterVerified = requester?.identity_verified ?? false;
   const start = startVerification.bind(null, token);
 
   return (
@@ -57,6 +58,18 @@ export default async function PublicVerifyPage({
                 <span className="font-semibold text-foreground">{requesterName}</span> asked to
                 confirm it's really you before dealing with you on Handshake.
               </p>
+
+              {requesterVerified && (
+                <span
+                  className="mt-3 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold"
+                  style={{
+                    background: "color-mix(in srgb, var(--verified) 14%, white)",
+                    color: "#0c5a32",
+                  }}
+                >
+                  ✓ {requesterName} is a verified Handshake user
+                </span>
+              )}
 
               <ul className="mt-6 space-y-3 text-sm">
                 <li className="flex items-center gap-2.5">

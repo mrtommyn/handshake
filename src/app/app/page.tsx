@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/button";
+import { startSelfVerification } from "./identity/actions";
 
 const vStatus: Record<string, { bg: string; fg: string; label: string }> = {
   pending: { bg: "var(--warm)", fg: "var(--warm-foreground)", label: "Waiting" },
@@ -37,6 +38,11 @@ export default async function DashboardPage() {
 
   const greetingName = profile?.full_name?.split(" ")[0] ?? "there";
   const verified = profile?.identity_verified ?? false;
+
+  // Hide self-verifications (you verifying yourself) from the list; they drive the status card.
+  const visibleVerifications = (verifications ?? []).filter(
+    (v) => v.subject_profile_id !== user.id,
+  );
 
   return (
     <div>
@@ -80,20 +86,22 @@ export default async function DashboardPage() {
           </div>
         </div>
         {!verified && (
-          <Button variant="outline" className="rounded-full" disabled>
-            Verify me
-          </Button>
+          <form action={startSelfVerification}>
+            <Button type="submit" variant="outline" className="rounded-full">
+              Verify me
+            </Button>
+          </form>
         )}
       </div>
 
       {/* verifications */}
-      {verifications && verifications.length > 0 && (
+      {visibleVerifications.length > 0 && (
         <section className="mt-10">
           <h2 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">
             Verifications
           </h2>
           <ul className="mt-4 space-y-3">
-            {verifications.map((v) => {
+            {visibleVerifications.map((v) => {
               const s = vStatus[v.status] ?? vStatus.pending;
               return (
                 <li key={v.id}>
@@ -149,8 +157,7 @@ export default async function DashboardPage() {
       )}
 
       {/* empty state */}
-      {(!verifications || verifications.length === 0) &&
-        (!deals || deals.length === 0) && (
+      {visibleVerifications.length === 0 && (!deals || deals.length === 0) && (
           <div className="mt-10 rounded-3xl border border-dashed border-border bg-card/50 p-10 text-center">
             <p className="text-lg font-semibold">Nothing here yet</p>
             <p className="mx-auto mt-1 max-w-sm text-sm text-muted-foreground">

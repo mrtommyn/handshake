@@ -184,7 +184,11 @@ rental, roommate, custom.
   - [x] Auto-send invite by SMS (Twilio number +19165458033 + Programmable Messaging;
     "Text them the link" button on status page; `src/app/app/verify/actions.ts`,
     `text-link-button.tsx`). Trial only texts verified numbers; US->AU delivery can be flaky.
-  - [ ] Auto-send by email (Resend); mutual verification ("verify me too")
+  - [x] Mutual verification: self-verification ("Verify me" on dashboard →
+    `src/app/app/identity/{actions.ts,done/page.tsx}` → flips profile.identity_verified);
+    public invite page shows "✓ verified Handshake user" badge for a verified requester;
+    webhook also flips profile for self-checks.
+  - [ ] Auto-send by email (Resend); requester profile name (currently "Someone on Handshake")
 - [ ] Agreement templates + builder + e-signature
 - [ ] PDF generation (unique contract ID) + email delivery
 - [ ] Admin dashboard
@@ -213,6 +217,18 @@ rental, roommate, custom.
 ---
 
 ## Session Log (append-only, newest first)
+
+### 2026-06-27 — Mutual verification (self-verify + requester badge)
+- SMS auto-send confirmed working end-to-end by user (text received, ID check, Verified).
+- Built self-verification: dashboard "Verify me" → `startSelfVerification` creates a
+  verifications row (subject_profile_id = requester_id = user) + Stripe session →
+  `/app/identity/done` retrieves result and flips `profiles.identity_verified`.
+- Self-checks hidden from the dashboard Verifications list (drive the status card instead).
+- Public invite page shows "✓ <name> is a verified Handshake user" when the requester is
+  self-verified (mutual trust). Webhook also flips the profile for self-verifications.
+- Known gap: phone-signup users have no name yet, so requester shows as "Someone on
+  Handshake". Add profile name editing later.
+- Next: #4 agreement builder (the other half of the product). Email invites + profile name TBD.
 
 ### 2026-06-27 — Stripe webhook + auto-send invite SMS (Twilio)
 - Built Stripe Identity webhook `/api/webhooks/stripe-identity` (updates status by provider_ref);
