@@ -191,7 +191,9 @@ rental, roommate, custom.
     `src/app/app/identity/{actions.ts,done/page.tsx}` → flips profile.identity_verified);
     public invite page shows "✓ verified Handshake user" badge for a verified requester;
     webhook also flips profile for self-checks.
-  - [ ] Auto-send by email (Resend); requester profile name (currently "Someone on Handshake")
+  - [x] Profile name: `/app/profile` (set full_name) + header Profile link + dashboard
+    "add your name" prompt. Fixes "Someone on Handshake" in invites/agreements.
+  - [ ] Auto-send by email (Resend)
 - [~] Agreement builder (#4)
   - [x] Templates config (marketplace_sale, vehicle_sale, friend_loan, rental, custom) —
     `src/lib/agreement-templates.ts` (fields + plain-English render)

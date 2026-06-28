@@ -38,6 +38,7 @@ export default async function DashboardPage() {
 
   const greetingName = profile?.full_name?.split(" ")[0] ?? "there";
   const verified = profile?.identity_verified ?? false;
+  const needsName = !profile?.full_name?.trim();
 
   // Hide self-verifications (you verifying yourself) from the list; they drive the status card.
   const visibleVerifications = (verifications ?? []).filter(
@@ -93,6 +94,21 @@ export default async function DashboardPage() {
           </form>
         )}
       </div>
+
+      {needsName && (
+        <Link
+          href="/app/profile"
+          className="mt-4 flex items-center justify-between gap-3 rounded-2xl border border-primary/30 bg-primary/5 p-4 transition-colors hover:bg-primary/10"
+        >
+          <div>
+            <p className="font-semibold">Add your name</p>
+            <p className="text-sm text-muted-foreground">
+              So people see who you are when you verify or sign with them.
+            </p>
+          </div>
+          <span className="shrink-0 text-sm font-semibold text-primary">Add →</span>
+        </Link>
+      )}
 
       {/* verifications */}
       {visibleVerifications.length > 0 && (
