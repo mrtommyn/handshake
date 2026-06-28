@@ -30,6 +30,9 @@ Trust & safety → Final CTA → Footer), dual-mode product framing, Apricot bra
 ## Locked Decisions (settled — do not re-litigate)
 
 - **Repo:** https://github.com/mrtommyn/handshake (branch `main`)
+- **Live (production):** https://handshake-sand.vercel.app — Vercel (Hobby/free), auto-deploys
+  on every push to `main`. Env vars set in Vercel (Supabase, Stripe TEST, Twilio). Supabase Auth
+  URL config points at the Vercel URL. Still Stripe/Twilio TEST mode + Twilio trial.
 - **Project root:** `G:\Handshake` (desktop). Also cloned to a laptop (see `docs/SETUP.md`).
 - **Framework:** Next.js 16 (App Router, Turbopack) + React 19 + TypeScript
 - **Styling:** Tailwind CSS v4 + shadcn/ui (base components in `src/components/ui`)
@@ -229,6 +232,16 @@ rental, roommate, custom.
 ---
 
 ## Session Log (append-only, newest first)
+
+### 2026-06-28 — Deployed live to Vercel
+- Fixed a production-build type error (Motion `ease` needed `as const` in hero.tsx); `next build`
+  now passes clean (17 routes).
+- Deployed to Vercel (Hobby/free) from the GitHub repo → live at https://handshake-sand.vercel.app.
+  Pasted all 8 env vars (Supabase, Stripe test, Twilio) into Vercel. Auto-deploy on push to main.
+- Updated Supabase Auth URL config: Site URL + redirect `https://handshake-sand.vercel.app/**`.
+- Phone login works on the live site (no redirect needed); email backup covered by the redirect URL.
+- TODO for real launch: Stripe webhook endpoint (live URL + STRIPE_WEBHOOK_SECRET), upgrade
+  Twilio off trial + AU sender, switch Stripe to live keys, custom domain.
 
 ### 2026-06-28 — Agreement builder, part 2 (public sign + signed PDF) — feature complete
 - Public sign page `/agreement/[token]` (admin-client read, no account): review content, type
