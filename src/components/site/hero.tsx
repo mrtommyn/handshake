@@ -21,7 +21,7 @@ export function Hero() {
       ? undefined
       : {
           y: [0, -amount, 0],
-          transition: { duration: 6, repeat: Infinity, ease: "easeInOut", delay },
+          transition: { duration: 6, repeat: Infinity, ease: "easeInOut" as const, delay },
         };
 
   return (
